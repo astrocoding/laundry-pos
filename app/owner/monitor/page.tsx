@@ -57,9 +57,9 @@ export default async function OwnerMonitorPage() {
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <div className="sm:flex sm:items-center mb-8">
         <div className="sm:flex-auto">
-          <h1 className="text-2xl font-semibold text-gray-900">Monitor Mesin</h1>
+          <h1 className="text-2xl font-semibold text-gray-900">Machine Monitor</h1>
           <p className="mt-2 text-sm text-gray-700">
-            Pantau seluruh sesi laundry dari semua cashier — real-time dan riwayat lengkap.
+            Track all laundry sessions across all cashiers — real-time and full history.
           </p>
         </div>
       </div>
@@ -69,24 +69,24 @@ export default async function OwnerMonitorPage() {
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-sky-500">
           <dt className="truncate text-sm font-medium text-gray-500">Running Now</dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{runningCount}</dd>
-          <p className="mt-1 text-xs text-gray-400">Mesin aktif saat ini</p>
+          <p className="mt-1 text-xs text-gray-400">Currently active machines</p>
         </div>
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-green-500">
           <dt className="truncate text-sm font-medium text-gray-500">Available Machines</dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{availableCount}</dd>
-          <p className="mt-1 text-xs text-gray-400">Siap digunakan</p>
+          <p className="mt-1 text-xs text-gray-400">Ready to use</p>
         </div>
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-purple-500">
           <dt className="truncate text-sm font-medium text-gray-500">Completed Today</dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{completedToday}</dd>
-          <p className="mt-1 text-xs text-gray-400">Sesi selesai hari ini</p>
+          <p className="mt-1 text-xs text-gray-400">Sessions completed today</p>
         </div>
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-orange-400">
           <dt className="truncate text-sm font-medium text-gray-500">Revenue Today</dt>
           <dd className="mt-1 text-2xl font-semibold tracking-tight text-gray-900">
             Rp {revenueTodayNum.toLocaleString("id-ID")}
           </dd>
-          <p className="mt-1 text-xs text-gray-400">Pemasukan hari ini</p>
+          <p className="mt-1 text-xs text-gray-400">Revenue today</p>
         </div>
       </dl>
 

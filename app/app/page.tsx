@@ -22,7 +22,7 @@ export default async function UserDashboardPage() {
     activeSessions,
     recentTransactions,
   ] = await Promise.all([
-    // Sales/revenue khusus cashier yang login (semua waktu, order COMPLETED)
+    // Sales/revenue for the logged-in cashier only (all time, COMPLETED orders)
     prisma.order.aggregate({
       _sum: { finalAmount: true },
       where: { userId: user.id, status: "COMPLETED" },
@@ -176,7 +176,7 @@ export default async function UserDashboardPage() {
                           </span>
                         </div>
                         <div className="mt-1 flex justify-between text-xs text-gray-500">
-                          <span>Mesin: {order.machineCode}</span>
+                          <span>Machine: {order.machineCode}</span>
                           <span className="font-medium text-gray-700">
                             Rp {order.finalAmount.toNumber().toLocaleString("id-ID")}
                           </span>

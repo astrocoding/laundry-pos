@@ -114,7 +114,7 @@ export default function OwnerMonitorTable({ sessions }: { sessions: OwnerMonitor
       data={sessions}
       columns={columns}
       searchKey="machineCode"
-      searchPlaceholder="Cari kode mesin, cashier, atau customer..."
+      searchPlaceholder="Search machine code, cashier, or customer..."
     />
   );
 }

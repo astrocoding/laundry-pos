@@ -59,7 +59,7 @@ export async function GET(
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=70mm">
-  <title>Struk - ${inv.invoiceNumber}</title>
+  <title>Receipt - ${inv.invoiceNumber}</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
@@ -106,32 +106,32 @@ export async function GET(
 <div class="page">
   <div class="subpage">
     <div class="store-name">LaundryPOS</div>
-    <div class="store-sub">Sistem Kasir Laundry Modern</div>
+    <div class="store-sub">Modern Laundry POS System</div>
     <hr class="divider" />
 
     <table>
       <tr>
-        <td class="label-col">No Struk</td>
+        <td class="label-col">Receipt No.</td>
         <td class="sep-col">:</td>
         <td class="val-col"><strong>${inv.invoiceNumber}</strong></td>
       </tr>
       <tr>
-        <td class="label-col">Tanggal</td>
+        <td class="label-col">Date</td>
         <td class="sep-col">:</td>
         <td class="val-col">${formatDateTime(inv.issuedAt)}</td>
       </tr>
       <tr>
-        <td class="label-col">Kasir</td>
+        <td class="label-col">Cashier</td>
         <td class="sep-col">:</td>
         <td class="val-col">${order.user.name}</td>
       </tr>
       <tr>
-        <td class="label-col">Pelanggan</td>
+        <td class="label-col">Customer</td>
         <td class="sep-col">:</td>
         <td class="val-col">${inv.customerName}</td>
       </tr>
       <tr>
-        <td class="label-col">Pembayaran</td>
+        <td class="label-col">Payment</td>
         <td class="sep-col">:</td>
         <td class="val-col">${inv.paymentMethod}</td>
       </tr>
@@ -141,15 +141,15 @@ export async function GET(
 
     <table>
       <tr class="items-head">
-        <td>Layanan / Mesin</td>
-        <td align="right">Harga</td>
+        <td>Service / Machine</td>
+        <td align="right">Price</td>
       </tr>
       <tr class="item-row">
         <td>
           ${inv.serviceName}<br/>
           <span style="font-size:11px;color:#555;">
-            Mesin: ${inv.machineCode} &bull; ${inv.durationMinutes} menit
-            ${endsAt ? `<br/>Selesai: ${formatDate(endsAt)}` : ""}
+            Machine: ${inv.machineCode} &bull; ${inv.durationMinutes} min
+            ${endsAt ? `<br/>Finish: ${formatDate(endsAt)}` : ""}
           </span>
         </td>
         <td align="right">${formatCurrency(inv.subtotal.toNumber())}</td>
@@ -160,13 +160,13 @@ export async function GET(
 
     <table>
       <tr class="summary-row">
-        <td>Sub Total</td>
+        <td>Subtotal</td>
         <td align="right">${formatCurrency(inv.subtotal.toNumber())}</td>
       </tr>
       ${
         inv.discount.toNumber() > 0
           ? `<tr class="summary-row">
-        <td>Diskon</td>
+        <td>Discount</td>
         <td align="right" style="color:#c00;">- ${formatCurrency(inv.discount.toNumber())}</td>
       </tr>`
           : ""
@@ -187,11 +187,11 @@ export async function GET(
         alt="QR Code ${inv.invoiceNumber}"
       />
     </div>
-    <div class="qr-label">Scan untuk verifikasi struk ini</div>
+    <div class="qr-label">Scan to verify this receipt</div>
 
     <div class="footer-note">
-      Terima kasih telah menggunakan LaundryPOS!<br/>
-      Dicetak: ${formatDateTime(new Date())}
+      Thank you for using LaundryPOS!<br/>
+      Printed: ${formatDateTime(new Date())}
     </div>
   </div>
 </div>
