@@ -20,17 +20,19 @@ export function ProblemSection() {
             Without a centralized timer and POS system, running a self-service laundry requires constant supervision and manual tracking.
           </p>
         </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-3">
+        <div className="mx-auto mt-10 max-w-2xl sm:mt-12 lg:mt-16 lg:max-w-none">
+          <dl className="grid max-w-xl grid-cols-1 gap-x-6 gap-y-6 lg:max-w-none lg:grid-cols-3">
             {problems.map((problem, idx) => (
-              <div key={idx} className="relative pl-12">
-                <dt className="text-base font-semibold leading-7 text-gray-900">
-                  <div className="absolute left-0 top-1 flex h-8 w-8 items-center justify-center rounded-lg bg-red-50">
-                    <AlertCircle className="h-5 w-5 text-red-600" aria-hidden="true" />
-                  </div>
-                  Common issue
-                </dt>
-                <dd className="mt-2 text-base leading-7 text-gray-600">{problem}</dd>
+              <div key={idx} className="relative flex items-start gap-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 hover:shadow-md transition-shadow">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-red-50">
+                  <AlertCircle className="h-6 w-6 text-red-600" aria-hidden="true" />
+                </div>
+                <div>
+                  <dt className="text-base font-semibold leading-7 text-gray-900">
+                    Common issue
+                  </dt>
+                  <dd className="mt-1 text-sm leading-6 text-gray-600">{problem}</dd>
+                </div>
               </div>
             ))}
           </dl>

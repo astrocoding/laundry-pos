@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Layers } from "lucide-react";
+import { Menu, X, Droplets } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 export function LandingNavbar() {
@@ -20,9 +20,9 @@ export function LandingNavbar() {
     <header className="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur-md border-b border-sky-100 shadow-sm">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1 items-center gap-2">
-          <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
+          <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2 hover:opacity-80 transition-opacity">
             <span className="sr-only">LaundryPOS</span>
-            <Layers className="h-8 w-8 text-sky-500" />
+            <Droplets className="h-8 w-8 text-sky-500" />
             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-cyan-600">
               LaundryPOS
             </span>
@@ -45,7 +45,7 @@ export function LandingNavbar() {
             </a>
           ))}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-4">
+        <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:gap-4">
           <Link
             href="/login"
             className="text-sm font-semibold leading-6 text-gray-900 px-3 py-2 hover:text-sky-600 transition-colors"
@@ -67,7 +67,7 @@ export function LandingNavbar() {
           <div className="flex items-center justify-between">
             <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
               <span className="sr-only">LaundryPOS</span>
-              <Layers className="h-8 w-8 text-sky-500" />
+              <Droplets className="h-8 w-8 text-sky-500" />
               <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-cyan-600">
                 LaundryPOS
               </span>

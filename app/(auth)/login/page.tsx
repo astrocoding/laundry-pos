@@ -4,7 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Droplets } from "lucide-react";
 
 export default function LoginPage() {
   const [phone, setPhone] = useState("");
@@ -46,13 +46,18 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
-          {/* Title inside the card */}
-          <h2 className="mb-6 text-center text-2xl font-bold tracking-tight text-gray-900">
-            Sign in to your account
-          </h2>
+          <div className="mb-6 flex justify-center">
+            <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <Droplets className="h-10 w-10 text-sky-500" />
+              <span className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-cyan-600">
+                LaundryPOS
+              </span>
+            </Link>
+          </div>
+
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             {error && (
@@ -147,6 +152,12 @@ export default function LoginPage() {
                 Create an account
               </Link>
             </div>
+          </div>
+
+          <div className="mt-6 text-center text-sm">
+            <Link href="/" className="font-medium text-sky-600 hover:text-sky-500">
+              Back to Homepage
+            </Link>
           </div>
         </div>
       </div>
