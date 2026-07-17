@@ -1,0 +1,252 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+  OWNER
+}
+
+enum MachineType {
+  WASHER
+  DRYER
+}
+
+enum MachineStatus {
+  AVAILABLE
+  RESERVED
+  RUNNING
+  MAINTENANCE
+  OFFLINE
+}
+
+enum ServiceType {
+  WASH
+  DRY
+  WASH_DRY
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  RUNNING
+  COMPLETED
+  CANCELED
+  REFUNDED
+  FAILED
+}
+
+enum SessionStatus {
+  RESERVED
+  RUNNING
+  COMPLETED
+  CANCELED
+  FAILED
+}
+
+enum QueueStatus {
+  WAITING
+  NOTIFIED
+  RESERVED
+  SERVED
+  CANCELED
+  EXPIRED
+  NO_SHOW
+}
+
+enum WalletLedgerType {
+  TOPUP
+  PURCHASE
+  REFUND
+  ADJUSTMENT
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String?  @unique
+  phone        String   @unique
+  passwordHash String
+  role         Role     @default(USER)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime @updatedAt @db.Timestamptz(6)
+
+  wallet       Wallet?
+  orders       Order[]
+  sessions     MachineSession[]
+  queues       MachineQueue[]
+}
+
+model Machine {
+  id                String        @id @default(uuid())
+  code              String        @unique
+  name              String
+  type              MachineType
+  capacityKg        Int?
+  status            MachineStatus @default(AVAILABLE)
+  locationZone      String?
+  serialNumber      String?
+  isActive          Boolean       @default(true)
+  lastMaintenanceAt DateTime?     @db.Timestamptz(6)
+  createdAt         DateTime      @default(now()) @db.Timestamptz(6)
+  updatedAt         DateTime      @updatedAt @db.Timestamptz(6)
+
+  sessions          MachineSession[]
+  reservations      MachineReservation[]
+}
+
+model PricingRule {
+  id               String      @id @default(uuid())
+  name             String
+  serviceType      ServiceType
+  machineType      MachineType
+  durationMinutes  Int
+  price            Decimal     @db.Decimal(12, 2)
+  currency         String      @default("IDR")
+  isActive         Boolean     @default(true)
+  effectiveStartAt DateTime    @default(now()) @db.Timestamptz(6)
+  effectiveEndAt   DateTime?   @db.Timestamptz(6)
+  createdAt        DateTime    @default(now()) @db.Timestamptz(6)
+  updatedAt        DateTime    @updatedAt @db.Timestamptz(6)
+
+  orders           Order[]
+}
+
+model Wallet {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  balance   Decimal  @default(0) @db.Decimal(12, 2)
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
+
+  user      User     @relation(fields: [userId], references: [id])
+  ledgers   WalletLedger[]
+}
+
+model WalletLedger {
+  id             String           @id @default(uuid())
+  walletId       String
+  type           WalletLedgerType
+  amount         Decimal          @db.Decimal(12, 2)
+  balanceBefore  Decimal          @db.Decimal(12, 2)
+  balanceAfter   Decimal          @db.Decimal(12, 2)
+  referenceType  String?
+  referenceId    String?
+  createdById    String?
+  createdAt      DateTime         @default(now()) @db.Timestamptz(6)
+
+  wallet         Wallet           @relation(fields: [walletId], references: [id])
+}
+
+model Order {
+  id               String      @id @default(uuid())
+  userId           String
+  machineId        String
+  pricingRuleId    String
+  status           OrderStatus @default(PENDING)
+  idempotencyKey   String?     @unique
+  serviceName      String
+  machineCode      String
+  durationMinutes  Int
+  priceSnapshot    Decimal     @db.Decimal(12, 2)
+  finalAmount      Decimal     @db.Decimal(12, 2)
+  paidAt           DateTime?   @db.Timestamptz(6)
+  createdAt        DateTime    @default(now()) @db.Timestamptz(6)
+  updatedAt        DateTime    @updatedAt @db.Timestamptz(6)
+
+  user             User        @relation(fields: [userId], references: [id])
+  pricingRule      PricingRule @relation(fields: [pricingRuleId], references: [id])
+  session          MachineSession?
+  invoice          Invoice?
+}
+
+model MachineReservation {
+  id        String        @id @default(uuid())
+  machineId String
+  userId    String
+  status    SessionStatus @default(RESERVED)
+  expiresAt DateTime      @db.Timestamptz(6)
+  createdAt DateTime      @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime      @updatedAt @db.Timestamptz(6)
+
+  machine   Machine       @relation(fields: [machineId], references: [id])
+}
+
+model MachineSession {
+  id              String        @id @default(uuid())
+  orderId         String        @unique
+  machineId       String
+  userId          String
+  status          SessionStatus @default(RUNNING)
+  durationMinutes Int
+  startedAt       DateTime      @db.Timestamptz(6)
+  endsAt          DateTime      @db.Timestamptz(6)
+  completedAt     DateTime?     @db.Timestamptz(6)
+  createdAt       DateTime      @default(now()) @db.Timestamptz(6)
+  updatedAt       DateTime      @updatedAt @db.Timestamptz(6)
+
+  order           Order         @relation(fields: [orderId], references: [id])
+  machine         Machine       @relation(fields: [machineId], references: [id])
+  user            User          @relation(fields: [userId], references: [id])
+
+  // Prevent more than one active running session per machine at application level, 
+  // also backed by PostgreSQL constraints in migration
+}
+
+model MachineQueue {
+  id                 String       @id @default(uuid())
+  userId             String
+  machineType         MachineType
+  serviceType         ServiceType
+  preferredPricingId  String?
+  status             QueueStatus  @default(WAITING)
+  positionSnapshot    Int?
+  notifiedAt          DateTime?    @db.Timestamptz(6)
+  reservedUntil       DateTime?    @db.Timestamptz(6)
+  servedAt            DateTime?    @db.Timestamptz(6)
+  createdAt           DateTime     @default(now()) @db.Timestamptz(6)
+  updatedAt           DateTime     @updatedAt @db.Timestamptz(6)
+
+  user               User         @relation(fields: [userId], references: [id])
+}
+
+model Invoice {
+  id              String   @id @default(uuid())
+  orderId          String   @unique
+  invoiceNumber    String   @unique
+  issuedAt         DateTime @default(now()) @db.Timestamptz(6)
+  customerName     String
+  machineCode      String
+  serviceName      String
+  durationMinutes  Int
+  subtotal         Decimal  @db.Decimal(12, 2)
+  discount         Decimal  @default(0) @db.Decimal(12, 2)
+  finalAmount      Decimal  @db.Decimal(12, 2)
+  paymentMethod    String
+  status           String
+  createdAt        DateTime @default(now()) @db.Timestamptz(6)
+
+  order            Order    @relation(fields: [orderId], references: [id])
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  actorId     String?
+  action      String
+  entityType  String
+  entityId    String?
+  beforeJson  Json?
+  afterJson   Json?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now()) @db.Timestamptz(6)
+}
