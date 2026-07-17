@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/permissions";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
+import PrintReceiptButton from "./PrintReceiptButton";
 
 export default async function InvoicePage({
   params,
@@ -40,10 +41,11 @@ export default async function InvoicePage({
             <h3 className="text-lg leading-6 font-medium text-gray-900">Invoice</h3>
             <p className="mt-1 max-w-2xl text-sm text-gray-500">{invoice.invoiceNumber}</p>
           </div>
-          <div>
+          <div className="flex items-center gap-3">
             <span className="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">
               {invoice.status}
             </span>
+            <PrintReceiptButton orderId={order.id} />
           </div>
         </div>
         <div className="px-4 py-5 sm:p-6">

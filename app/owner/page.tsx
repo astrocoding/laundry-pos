@@ -9,7 +9,8 @@ export default async function OwnerDashboardPage() {
   const [
     totalRevenueRaw,
     totalOrders,
-    usersCount,
+    cashierCount,
+    adminCount,
   ] = await Promise.all([
     prisma.order.aggregate({
       _sum: { finalAmount: true },
@@ -17,6 +18,7 @@ export default async function OwnerDashboardPage() {
     }),
     prisma.order.count({ where: { status: "COMPLETED" } }),
     prisma.user.count({ where: { role: "CASHIER" } }),
+    prisma.user.count({ where: { role: "ADMIN" } }),
   ]);
 
   const totalRevenue = totalRevenueRaw._sum.finalAmount?.toNumber() || 0;
@@ -25,20 +27,27 @@ export default async function OwnerDashboardPage() {
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-2xl font-semibold text-gray-900 mb-6">Owner Dashboard</h1>
 
-      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-green-500">
           <dt className="truncate text-sm font-medium text-gray-500">Total Revenue</dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
             Rp {totalRevenue.toLocaleString("id-ID")}
           </dd>
         </div>
+
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-sky-500">
           <dt className="truncate text-sm font-medium text-gray-500">Total Completed Orders</dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{totalOrders}</dd>
         </div>
+
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-purple-500">
-          <dt className="truncate text-sm font-medium text-gray-500">Total Customers</dt>
-          <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{usersCount}</dd>
+          <dt className="truncate text-sm font-medium text-gray-500">Total Cashier</dt>
+          <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{cashierCount}</dd>
+        </div>
+
+        <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-orange-400">
+          <dt className="truncate text-sm font-medium text-gray-500">Total Admin</dt>
+          <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{adminCount}</dd>
         </div>
       </dl>
     </div>
