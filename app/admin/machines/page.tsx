@@ -3,6 +3,9 @@ import { requireAdmin } from "@/lib/permissions";
 import { syncMachineStatuses } from "@/lib/machine-sync";
 import MachinesTable from "./MachinesTable";
 import AddMachineModal from "./AddMachineModal";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Machines" };
 
 export default async function AdminMachinesPage() {
   await syncMachineStatuses();

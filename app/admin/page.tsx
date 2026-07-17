@@ -1,5 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/permissions";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Admin Dashboard" };
 
 export const dynamic = "force-dynamic";
 

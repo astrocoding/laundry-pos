@@ -12,21 +12,18 @@ export function FeatureSection() {
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Everything you need for self-service laundry
           </p>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            LaundryPOS combines timer control, digital payments, and real-time monitoring into a single, intuitive interface.
-          </p>
         </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+        <div className="mx-auto mt-10 max-w-2xl sm:mt-12 lg:mt-16 lg:max-w-none">
+          <dl className="grid max-w-xl grid-cols-1 gap-x-6 gap-y-6 lg:max-w-none lg:grid-cols-3">
             {features.map((feature) => (
-              <div key={feature.title} className="flex flex-col">
+              <div key={feature.title} className="flex flex-col rounded-2xl bg-white p-6 shadow-sm ring-1 ring-sky-100 hover:shadow-md transition-shadow">
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
-                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-sky-100 shadow-sm border border-sky-200">
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-sky-50">
                     <feature.icon className="h-5 w-5 text-sky-600" aria-hidden="true" />
                   </div>
                   {feature.title}
                 </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                <dd className="mt-4 flex flex-auto flex-col text-sm leading-6 text-gray-600">
                   <p className="flex-auto">{feature.description}</p>
                 </dd>
               </div>

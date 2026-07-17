@@ -41,11 +41,7 @@ export async function POST(req: NextRequest) {
         name,
         phone,
         passwordHash,
-        wallet: {
-          create: {
-            balance: 0,
-          },
-        },
+
       },
     });
 

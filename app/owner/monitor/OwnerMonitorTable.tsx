@@ -4,7 +4,7 @@ import React from "react";
 import { DataTable, ColumnDef } from "@/components/ui/DataTable";
 import TimerComponent from "@/components/TimerComponent";
 
-export type SessionData = {
+export type OwnerMonitorSessionData = {
   id: string;
   machineCode: string;
   machineName: string;
@@ -18,8 +18,8 @@ export type SessionData = {
   endsAt: string;
 };
 
-export default function MonitoringTable({ sessions }: { sessions: SessionData[] }) {
-  const columns: ColumnDef<SessionData>[] = [
+export default function OwnerMonitorTable({ sessions }: { sessions: OwnerMonitorSessionData[] }) {
+  const columns: ColumnDef<OwnerMonitorSessionData>[] = [
     {
       key: "machineCode",
       label: "Machine",
@@ -55,14 +55,15 @@ export default function MonitoringTable({ sessions }: { sessions: SessionData[] 
       key: "cashierName",
       label: "Cashier",
       sortable: true,
-      render: (item) => <span className="text-gray-700">{item.cashierName}</span>,
+      render: (item) => (
+        <span className="text-gray-700">{item.cashierName}</span>
+      ),
     },
     {
       key: "customerName",
       label: "Customer",
       sortable: true,
-      render: (item) =>
-        item.customerName || <span className="text-gray-400 text-xs">—</span>,
+      render: (item) => item.customerName || <span className="text-gray-400 text-xs">—</span>,
     },
     {
       key: "finalAmount",

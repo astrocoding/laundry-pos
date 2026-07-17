@@ -100,12 +100,11 @@ export default function EditMachineModal({ machine }: { machine: MachineData }) 
                   <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">
                     Machine Type
                   </label>
-                  <select
-                    name="type"
+                  <select name="type"
                     id="type"
                     defaultValue={machine.type}
                     required
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2 pr-10"
                   >
                     <option value="WASHER">Washer</option>
                     <option value="DRYER">Dryer</option>
@@ -142,12 +141,11 @@ export default function EditMachineModal({ machine }: { machine: MachineData }) 
                   <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
                     Status
                   </label>
-                  <select
-                    name="status"
+                  <select name="status"
                     id="status"
                     defaultValue={machine.status}
                     required
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2 pr-10"
                   >
                     <option value="AVAILABLE">AVAILABLE</option>
                     <option value="RUNNING">RUNNING</option>

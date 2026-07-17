@@ -2,6 +2,9 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/permissions";
 import Link from "next/link";
 import MonitorTable, { MonitorSessionData } from "./MonitorTable";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "My Machine Monitor" };
 
 export default async function MonitorPage() {
   const user = await requireUser();

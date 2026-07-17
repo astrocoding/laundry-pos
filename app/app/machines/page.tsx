@@ -3,6 +3,9 @@ import { requireUser } from "@/lib/permissions";
 import { syncMachineStatuses } from "@/lib/machine-sync";
 import Link from "next/link";
 import { Machine, MachineSession } from "@prisma/client";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Select Machine" };
 
 export default async function UserMachinesPage() {
   await syncMachineStatuses();
