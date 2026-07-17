@@ -32,6 +32,9 @@ export async function POST(req: Request) {
     if (error instanceof Error && error.message === "PRICING_NOT_AVAILABLE") {
       return NextResponse.json({ error: "Invalid pricing rule selected" }, { status: 400 });
     }
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return NextResponse.json({ error: "Unauthorized. Please log in again." }, { status: 401 });
+    }
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
