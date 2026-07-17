@@ -16,21 +16,18 @@ export default function DashboardSessionStatus({
   useEffect(() => {
     if (status !== "RUNNING") return;
 
-    let interval: NodeJS.Timeout;
-
     const checkStatus = () => {
       const endTime = new Date(endsAt).getTime();
       const now = new Date().getTime();
-      
       if (now >= endTime) {
         setStatus("COMPLETED");
         router.refresh();
       }
     };
 
-    // Check immediately and then every 10 seconds
+    // Check immediately, then every 10 seconds
     checkStatus();
-    interval = setInterval(checkStatus, 10000);
+    const interval = setInterval(checkStatus, 10000);
 
     return () => clearInterval(interval);
   }, [status, endsAt, router]);

@@ -60,7 +60,6 @@ export async function processCheckout({
 
 
     // 7. Create Order
-    const user = await tx.user.findUniqueOrThrow({ where: { id: userId } });
     const order = await tx.order.create({
       data: {
         userId,

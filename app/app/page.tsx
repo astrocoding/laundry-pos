@@ -12,7 +12,8 @@ export default async function UserDashboardPage() {
 
   const todayStart = new Date();
   todayStart.setHours(0, 0, 0, 0);
-  const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  const twentyFourHoursAgo = new Date(todayStart);
+  twentyFourHoursAgo.setDate(twentyFourHoursAgo.getDate() - 1);
 
   const [
     myRevenueRaw,

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireUser } from "@/lib/permissions";
 import { prisma } from "@/lib/prisma";
-import { notFound } from "next/navigation";
 
 const formatCurrency = (amount: number) =>
   new Intl.NumberFormat("id-ID", {

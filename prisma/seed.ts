@@ -45,7 +45,7 @@ async function main() {
     }
   })
 
-  const cashier1 = await prisma.user.create({
+  await prisma.user.create({
     data: {
       name: 'John Doe',
       email: 'john@example.com',

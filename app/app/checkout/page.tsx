@@ -8,7 +8,7 @@ export default async function CheckoutPage({
 }: {
   searchParams: Promise<{ machineId?: string }>;
 }) {
-  const user = await requireUser();
+  await requireUser();
   const { machineId } = await searchParams;
 
   if (!machineId) {
