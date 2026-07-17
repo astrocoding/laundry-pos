@@ -28,7 +28,7 @@ export default function AddMachineModal() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
       >
         <Plus className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
         Add
@@ -66,7 +66,7 @@ export default function AddMachineModal() {
                     id="code"
                     required
                     placeholder="e.g. W-01"
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
                   />
                 </div>
 
@@ -80,7 +80,7 @@ export default function AddMachineModal() {
                     id="name"
                     required
                     placeholder="e.g. Front Load Washer 1"
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
                   />
                 </div>
 
@@ -92,7 +92,7 @@ export default function AddMachineModal() {
                     name="type"
                     id="type"
                     required
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
                   >
                     <option value="WASHER">Washer</option>
                     <option value="DRYER">Dryer</option>
@@ -108,7 +108,7 @@ export default function AddMachineModal() {
                     name="capacityKg"
                     id="capacityKg"
                     placeholder="e.g. 15"
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
                   />
                 </div>
 
@@ -121,7 +121,7 @@ export default function AddMachineModal() {
                     name="locationZone"
                     id="locationZone"
                     placeholder="e.g. Zone A"
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
                   />
                 </div>
               </form>
@@ -131,7 +131,7 @@ export default function AddMachineModal() {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
               >
                 Cancel
               </button>
@@ -139,7 +139,7 @@ export default function AddMachineModal() {
                 type="submit"
                 form="add-machine-form"
                 disabled={isLoading}
-                className="inline-flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+                className="inline-flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50"
               >
                 {isLoading ? "Saving..." : "Save Record"}
               </button>

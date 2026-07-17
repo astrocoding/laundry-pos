@@ -29,7 +29,7 @@ export default async function InvoicePage({
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-6">
-        <Link href="/app/transactions" className="text-sm font-medium text-blue-600 hover:text-blue-500">
+        <Link href="/app/transactions" className="text-sm font-medium text-sky-600 hover:text-sky-500">
           &larr; Back to Transactions
         </Link>
       </div>

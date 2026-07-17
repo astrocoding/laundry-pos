@@ -42,7 +42,7 @@ export default function MachinesTable({ machines }: { machines: Machine[] }) {
             item.status === "AVAILABLE"
               ? "bg-green-100 text-green-800"
               : item.status === "RUNNING"
-              ? "bg-blue-100 text-blue-800"
+              ? "bg-sky-100 text-sky-800"
               : item.status === "MAINTENANCE"
               ? "bg-gray-100 text-gray-800"
               : "bg-yellow-100 text-yellow-800"

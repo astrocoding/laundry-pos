@@ -58,7 +58,7 @@ export default async function CheckoutPage({
             </div>
             <div className="sm:col-span-1">
               <dt className="text-sm font-medium text-gray-500">Wallet Balance</dt>
-              <dd className="mt-1 text-sm text-gray-900 font-bold text-blue-600">
+              <dd className="mt-1 text-sm text-gray-900 font-bold text-sky-600">
                 Rp {wallet?.balance.toNumber().toLocaleString("id-ID") || 0}
               </dd>
             </div>

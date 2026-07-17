@@ -43,7 +43,7 @@ export default function TransactionsTable({ orders }: { orders: OrderData[] }) {
             item.status === "PAID"
               ? "bg-green-100 text-green-800"
               : item.status === "COMPLETED"
-              ? "bg-blue-100 text-blue-800"
+              ? "bg-sky-100 text-sky-800"
               : "bg-gray-100 text-gray-800"
           }`}
         >
@@ -58,7 +58,7 @@ export default function TransactionsTable({ orders }: { orders: OrderData[] }) {
         item.hasInvoice ? (
           <Link
             href={`/app/transactions/${item.id}`}
-            className="text-blue-600 hover:text-blue-900"
+            className="text-sky-600 hover:text-sky-900"
           >
             View Invoice
           </Link>

@@ -36,7 +36,7 @@ export default async function UserDashboardPage() {
       <h1 className="text-2xl font-semibold text-gray-900 mb-6">Hello, {user.name}</h1>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="bg-white overflow-hidden shadow rounded-lg border-t-4 border-blue-500">
+        <div className="bg-white overflow-hidden shadow rounded-lg border-t-4 border-sky-500">
           <div className="px-4 py-5 sm:p-6">
             <dt className="text-sm font-medium text-gray-500 truncate">Wallet Balance</dt>
             <dd className="mt-1 text-3xl font-semibold text-gray-900">
@@ -45,7 +45,7 @@ export default async function UserDashboardPage() {
             <div className="mt-4">
               <Link
                 href="/app/topup"
-                className="inline-flex items-center rounded-md border border-transparent bg-blue-100 px-3 py-2 text-sm font-medium leading-4 text-blue-700 hover:bg-blue-200"
+                className="inline-flex items-center rounded-md border border-transparent bg-sky-100 px-3 py-2 text-sm font-medium leading-4 text-sky-700 hover:bg-sky-200"
               >
                 Top Up Balance
               </Link>
@@ -70,7 +70,7 @@ export default async function UserDashboardPage() {
                     </div>
                     <Link
                       href={`/app/monitor`}
-                      className="text-sm text-blue-600 hover:text-blue-900"
+                      className="text-sm text-sky-600 hover:text-sky-900"
                     >
                       View
                     </Link>
@@ -84,7 +84,7 @@ export default async function UserDashboardPage() {
                 <div className="mt-4">
                   <Link
                     href="/app/machines"
-                    className="inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700"
+                    className="inline-flex items-center rounded-md border border-transparent bg-sky-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-sky-700"
                   >
                     Start a Wash
                   </Link>
@@ -105,7 +105,7 @@ export default async function UserDashboardPage() {
                   <Link href={`/app/transactions`} className="block hover:bg-gray-50">
                     <div className="px-4 py-4 sm:px-6">
                       <div className="flex items-center justify-between">
-                        <p className="text-sm font-medium text-blue-600 truncate">{order.serviceName}</p>
+                        <p className="text-sm font-medium text-sky-600 truncate">{order.serviceName}</p>
                         <div className="ml-2 flex-shrink-0 flex">
                           <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                             {order.status}

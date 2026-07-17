@@ -30,7 +30,7 @@ export default function MonitorTable({ sessions }: { sessions: MonitorSessionDat
         <span
           className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
             item.status === "RUNNING"
-              ? "bg-blue-100 text-blue-800"
+              ? "bg-sky-100 text-sky-800"
               : item.status === "COMPLETED"
               ? "bg-green-100 text-green-800"
               : "bg-gray-100 text-gray-800"

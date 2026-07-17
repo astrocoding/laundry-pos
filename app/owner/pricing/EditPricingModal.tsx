@@ -38,7 +38,7 @@ export default function EditPricingModal({ rule }: { rule: PricingRule }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="text-indigo-600 hover:text-indigo-900 flex items-center font-medium"
+        className="text-sky-600 hover:text-sky-900 flex items-center font-medium"
       >
         <Edit2 className="h-4 w-4 mr-1" />
         Edit
@@ -78,7 +78,7 @@ export default function EditPricingModal({ rule }: { rule: PricingRule }) {
                     id="name"
                     defaultValue={rule.name}
                     required
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
                   />
                 </div>
 
@@ -91,7 +91,7 @@ export default function EditPricingModal({ rule }: { rule: PricingRule }) {
                     id="serviceType"
                     defaultValue={rule.serviceType}
                     required
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
                   >
                     <option value="WASH">Wash</option>
                     <option value="DRY">Dry</option>
@@ -108,7 +108,7 @@ export default function EditPricingModal({ rule }: { rule: PricingRule }) {
                     id="machineType"
                     defaultValue={rule.machineType}
                     required
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
                   >
                     <option value="WASHER">Washer</option>
                     <option value="DRYER">Dryer</option>
@@ -126,7 +126,7 @@ export default function EditPricingModal({ rule }: { rule: PricingRule }) {
                     defaultValue={rule.durationMinutes}
                     required
                     min="1"
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
                   />
                 </div>
 
@@ -141,7 +141,7 @@ export default function EditPricingModal({ rule }: { rule: PricingRule }) {
                     defaultValue={rule.priceNum}
                     required
                     min="0"
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
                   />
                 </div>
 
@@ -154,7 +154,7 @@ export default function EditPricingModal({ rule }: { rule: PricingRule }) {
                     id="isActive"
                     defaultValue={rule.isActive ? "true" : "false"}
                     required
-                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border px-3 py-2"
+                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500 sm:text-sm border px-3 py-2"
                   >
                     <option value="true">Active</option>
                     <option value="false">Inactive</option>
@@ -167,7 +167,7 @@ export default function EditPricingModal({ rule }: { rule: PricingRule }) {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
               >
                 Cancel
               </button>
@@ -175,7 +175,7 @@ export default function EditPricingModal({ rule }: { rule: PricingRule }) {
                 type="submit"
                 form={`edit-pricing-form-${rule.id}`}
                 disabled={isLoading}
-                className="inline-flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+                className="inline-flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50"
               >
                 {isLoading ? "Saving..." : "Save Changes"}
               </button>

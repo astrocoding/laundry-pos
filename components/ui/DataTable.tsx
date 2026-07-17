@@ -97,7 +97,7 @@ export function DataTable<T extends Record<string, unknown>>({
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
               placeholder={searchPlaceholder}
             />
           </div>
@@ -113,7 +113,7 @@ export function DataTable<T extends Record<string, unknown>>({
               setRowsPerPage(Number(e.target.value));
               setCurrentPage(1);
             }}
-            className="block rounded-md border border-gray-300 py-1.5 pl-3 pr-8 text-base focus:border-blue-500 focus:outline-none focus:ring-blue-500 sm:text-sm"
+            className="block rounded-md border border-gray-300 py-1.5 pl-3 pr-8 text-base focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
           >
             <option value={5}>5</option>
             <option value={10}>10</option>

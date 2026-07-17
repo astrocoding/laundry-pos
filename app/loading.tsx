@@ -3,7 +3,7 @@ export default function Loading() {
     <div className="flex h-[50vh] w-full items-center justify-center">
       <div className="flex flex-col items-center gap-4">
         <svg
-          className="h-10 w-10 animate-spin text-blue-600"
+          className="h-10 w-10 animate-spin text-sky-600"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

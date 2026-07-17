@@ -101,7 +101,7 @@ export function TopNav() {
               <div className="flex items-center mr-2">
                 <Layers className="w-7 h-7" style={{ stroke: "url(#blue-gradient)" }} />
               </div>
-              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800 tracking-tight hidden sm:block">
+              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-sky-800 tracking-tight hidden sm:block">
                 LaundryPOS
               </span>
               <span className="ml-3 hidden sm:inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 border border-gray-200">
@@ -115,7 +115,7 @@ export function TopNav() {
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className={`p-2 rounded-lg transition-colors border-2 ${
                   isMobileMenuOpen 
-                    ? "border-blue-500 bg-blue-50 text-blue-600" 
+                    ? "border-sky-500 bg-sky-50 text-sky-600" 
                     : "border-transparent text-gray-500 hover:bg-gray-100"
                 }`}
               >
@@ -126,7 +126,7 @@ export function TopNav() {
               {isMobileMenuOpen && (
                 <div className="absolute left-0 top-12 mt-2 w-56 origin-top-left rounded-xl bg-white shadow-lg border border-gray-100 focus:outline-none z-50 overflow-hidden flex flex-col py-2">
                   <div className="px-4 py-2 border-b border-gray-50 mb-2">
-                    <span className="text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800 tracking-tight">
+                    <span className="text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-sky-800 tracking-tight">
                       LaundryPOS
                     </span>
                     <span className="ml-2 inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-800 border border-gray-200">
@@ -141,11 +141,11 @@ export function TopNav() {
                         href={link.href}
                         className={`flex items-center px-4 py-2.5 text-sm font-medium transition-colors ${
                           isActive
-                            ? "bg-blue-50/50 text-blue-600"
+                            ? "bg-sky-50/50 text-sky-600"
                             : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                         }`}
                       >
-                        <span className={`mr-3 ${isActive ? "text-blue-600" : "text-gray-400"}`}>
+                        <span className={`mr-3 ${isActive ? "text-sky-600" : "text-gray-400"}`}>
                           {link.icon}
                         </span>
                         {link.name}
@@ -195,7 +195,7 @@ export function TopNav() {
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className={`flex items-center p-2 rounded-lg border transition-colors ${
-                  isDropdownOpen ? "border-blue-500 bg-blue-50 text-blue-600" : "border-gray-200 text-gray-500 hover:bg-gray-50"
+                  isDropdownOpen ? "border-sky-500 bg-sky-50 text-sky-600" : "border-gray-200 text-gray-500 hover:bg-gray-50"
                 }`}
               >
                 <User className="w-5 h-5" />

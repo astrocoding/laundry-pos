@@ -75,7 +75,7 @@ export default function CheckoutClient({
             <label
               key={rule.id}
               className={`relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none ${
-                selectedRuleId === rule.id ? "border-blue-500 ring-2 ring-blue-500" : "border-gray-300"
+                selectedRuleId === rule.id ? "border-sky-500 ring-2 ring-sky-500" : "border-gray-300"
               }`}
             >
               <input
@@ -107,7 +107,7 @@ export default function CheckoutClient({
           <button
             onClick={handleCheckout}
             disabled={!selectedRuleId || loading}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 disabled:opacity-50"
           >
             {loading ? "Processing..." : "Pay & Start"}
           </button>

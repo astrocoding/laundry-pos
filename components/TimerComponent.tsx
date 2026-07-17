@@ -55,7 +55,7 @@ export default function TimerComponent({ endsAt }: { endsAt: string }) {
   const seconds = timeLeft % 60;
 
   return (
-    <span className="font-mono font-bold text-blue-600">
+    <span className="font-mono font-bold text-sky-600">
       {minutes.toString().padStart(2, "0")}:{seconds.toString().padStart(2, "0")}
     </span>
   );

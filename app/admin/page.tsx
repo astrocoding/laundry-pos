@@ -39,7 +39,7 @@ export default async function AdminDashboardPage() {
           <dt className="truncate text-sm font-medium text-gray-500">Available</dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{availableMachines}</dd>
         </div>
-        <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-blue-500">
+        <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-sky-500">
           <dt className="truncate text-sm font-medium text-gray-500">Running</dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{runningMachines}</dd>
         </div>
