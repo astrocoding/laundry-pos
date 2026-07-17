@@ -26,10 +26,10 @@ export default async function UserDashboardPage() {
     activeSessions,
     recentTransactions,
   ] = await Promise.all([
-    // Sales/revenue for the logged-in cashier only (all time, COMPLETED orders)
+    // Sales/revenue for the logged-in cashier only (all time, successful orders)
     prisma.order.aggregate({
       _sum: { finalAmount: true },
-      where: { userId: user.id, status: "COMPLETED" },
+      where: { userId: user.id, status: { in: ["PAID", "RUNNING", "COMPLETED"] } },
     }),
     // Jumlah order harian cashier yang login
     prisma.order.count({
@@ -75,7 +75,7 @@ export default async function UserDashboardPage() {
           <dd className="mt-1 text-2xl font-semibold tracking-tight text-gray-900">
             Rp {myRevenue.toLocaleString("id-ID")}
           </dd>
-          <p className="mt-1 text-xs text-gray-400">Completed orders only</p>
+          <p className="mt-1 text-xs text-gray-400">Paid orders only</p>
         </div>
 
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-sky-500">
@@ -169,7 +169,7 @@ export default async function UserDashboardPage() {
                           <p className="text-sm font-medium text-sky-600 truncate">{order.serviceName}</p>
                           <span
                             className={`ml-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                              order.status === "COMPLETED"
+                              order.status === "COMPLETED" || order.status === "PAID"
                                 ? "bg-green-100 text-green-800"
                                 : order.status === "RUNNING"
                                 ? "bg-sky-100 text-sky-800"

@@ -17,9 +17,9 @@ export default async function OwnerDashboardPage() {
   ] = await Promise.all([
     prisma.order.aggregate({
       _sum: { finalAmount: true },
-      where: { status: "COMPLETED" },
+      where: { status: { in: ["PAID", "RUNNING", "COMPLETED"] } },
     }),
-    prisma.order.count({ where: { status: "COMPLETED" } }),
+    prisma.order.count({ where: { status: { in: ["PAID", "RUNNING", "COMPLETED"] } } }),
     prisma.user.count({ where: { role: "CASHIER" } }),
     prisma.user.count({ where: { role: "ADMIN" } }),
   ]);
@@ -39,7 +39,7 @@ export default async function OwnerDashboardPage() {
         </div>
 
         <div className="overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 border-l-4 border-sky-500">
-          <dt className="truncate text-sm font-medium text-gray-500">Total Completed Orders</dt>
+          <dt className="truncate text-sm font-medium text-gray-500">Total Paid Orders</dt>
           <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{totalOrders}</dd>
         </div>
 
