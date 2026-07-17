@@ -3,6 +3,9 @@ import { requireUser } from "@/lib/permissions";
 import { syncMachineStatuses } from "@/lib/machine-sync";
 import Link from "next/link";
 import DashboardSessionStatus from "@/components/DashboardSessionStatus";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Dashboard" };
 
 export const dynamic = "force-dynamic";
 

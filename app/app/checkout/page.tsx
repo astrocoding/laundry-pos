@@ -2,6 +2,9 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/permissions";
 import { redirect } from "next/navigation";
 import CheckoutClient from "./CheckoutClient";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Checkout" };
 
 export default async function CheckoutPage({
   searchParams,

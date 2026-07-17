@@ -2,6 +2,9 @@ import { prisma } from "@/lib/prisma";
 import { requireOwner } from "@/lib/permissions";
 import UsersTable from "./UsersTable";
 import AddUserModal from "./AddUserModal";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "User Management" };
 
 export const dynamic = "force-dynamic";
 

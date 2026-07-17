@@ -3,6 +3,21 @@ import { requireUser } from "@/lib/permissions";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import PrintReceiptButton from "./PrintReceiptButton";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const order = await prisma.order.findUnique({
+    where: { id },
+    include: { invoice: true },
+  });
+  const invoiceNumber = order?.invoice?.invoiceNumber ?? "Invoice";
+  return { title: `Invoice ${invoiceNumber}` };
+}
 
 export default async function InvoicePage({
   params,
