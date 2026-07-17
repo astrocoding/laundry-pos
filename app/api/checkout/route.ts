@@ -8,9 +8,9 @@ export async function POST(req: Request) {
     await syncMachineStatuses();
     const user = await requireUser();
     const body = await req.json();
-    const { machineId, pricingRuleId, idempotencyKey } = body;
+    const { machineId, pricingRuleId, idempotencyKey, customerName, paymentMethod } = body;
 
-    if (!machineId || !pricingRuleId) {
+    if (!machineId || !pricingRuleId || !customerName || !paymentMethod) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
@@ -19,6 +19,8 @@ export async function POST(req: Request) {
       machineId,
       pricingRuleId,
       idempotencyKey,
+      customerName,
+      paymentMethod,
     });
 
     return NextResponse.json({ success: true, orderId: result.order.id });
@@ -29,9 +31,6 @@ export async function POST(req: Request) {
     }
     if (error instanceof Error && error.message === "PRICING_NOT_AVAILABLE") {
       return NextResponse.json({ error: "Invalid pricing rule selected" }, { status: 400 });
-    }
-    if (error instanceof Error && error.message === "INSUFFICIENT_BALANCE") {
-      return NextResponse.json({ error: "Insufficient wallet balance" }, { status: 402 });
     }
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }

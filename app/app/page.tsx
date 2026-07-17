@@ -2,14 +2,11 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/permissions";
 import { syncMachineStatuses } from "@/lib/machine-sync";
 import Link from "next/link";
+import DashboardSessionStatus from "@/components/DashboardSessionStatus";
 
 export default async function UserDashboardPage() {
   await syncMachineStatuses();
   const user = await requireUser();
-
-  const wallet = await prisma.wallet.findUnique({
-    where: { userId: user.id },
-  });
 
   // eslint-disable-next-line react-hooks/purity
   const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
@@ -36,24 +33,7 @@ export default async function UserDashboardPage() {
       <h1 className="text-2xl font-semibold text-gray-900 mb-6">Hello, {user.name}</h1>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="bg-white overflow-hidden shadow rounded-lg border-t-4 border-sky-500">
-          <div className="px-4 py-5 sm:p-6">
-            <dt className="text-sm font-medium text-gray-500 truncate">Wallet Balance</dt>
-            <dd className="mt-1 text-3xl font-semibold text-gray-900">
-              Rp {wallet?.balance.toNumber().toLocaleString("id-ID") || 0}
-            </dd>
-            <div className="mt-4">
-              <Link
-                href="/app/topup"
-                className="inline-flex items-center rounded-md border border-transparent bg-sky-100 px-3 py-2 text-sm font-medium leading-4 text-sky-700 hover:bg-sky-200"
-              >
-                Top Up Balance
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white overflow-hidden shadow rounded-lg border-t-4 border-green-500 lg:col-span-2">
+        <div className="bg-white overflow-hidden shadow rounded-lg border-t-4 border-green-500 lg:col-span-3">
           <div className="px-4 py-5 sm:p-6">
             <dt className="text-sm font-medium text-gray-500 truncate mb-4">Active Machines</dt>
             {activeSessions.length > 0 ? (
@@ -65,7 +45,10 @@ export default async function UserDashboardPage() {
                     <div>
                       <p className="text-sm font-medium text-gray-900">{session.machine.name} ({session.machine.code})</p>
                       <p className="text-sm text-gray-500">
-                        {isRunning ? `Running until ${session.endsAt.toLocaleTimeString()}` : `Finished at ${session.endsAt.toLocaleTimeString()}`}
+                        <DashboardSessionStatus 
+                          initialStatus={session.status} 
+                          endsAt={session.endsAt.toISOString()} 
+                        />
                       </p>
                     </div>
                     <Link

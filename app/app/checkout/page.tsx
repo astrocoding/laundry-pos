@@ -25,12 +25,9 @@ export default async function CheckoutPage({
 
   const pricingRules = await prisma.pricingRule.findMany({
     where: { machineType: machine.type, isActive: true },
-    orderBy: { durationMinutes: "asc" },
+    orderBy: { price: "asc" },
   });
 
-  const wallet = await prisma.wallet.findUnique({
-    where: { userId: user.id },
-  });
 
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-8">
@@ -57,10 +54,8 @@ export default async function CheckoutPage({
               <dd className="mt-1 text-sm text-gray-900">{machine.capacityKg} kg</dd>
             </div>
             <div className="sm:col-span-1">
-              <dt className="text-sm font-medium text-gray-500">Wallet Balance</dt>
-              <dd className="mt-1 text-sm text-gray-900 font-bold text-sky-600">
-                Rp {wallet?.balance.toNumber().toLocaleString("id-ID") || 0}
-              </dd>
+              <dt className="text-sm font-medium text-gray-500">Status</dt>
+              <dd className="mt-1 text-sm text-gray-900">{machine.status}</dd>
             </div>
           </dl>
         </div>
@@ -72,7 +67,6 @@ export default async function CheckoutPage({
           ...pr,
           price: pr.price.toNumber()
         }))} 
-        balance={wallet?.balance.toNumber() || 0} 
       />
     </div>
   );

@@ -16,7 +16,7 @@ export default async function OwnerDashboardPage() {
       where: { status: "COMPLETED" },
     }),
     prisma.order.count({ where: { status: "COMPLETED" } }),
-    prisma.user.count({ where: { role: "USER" } }),
+    prisma.user.count({ where: { role: "CASHIER" } }),
   ]);
 
   const totalRevenue = totalRevenueRaw._sum.finalAmount?.toNumber() || 0;

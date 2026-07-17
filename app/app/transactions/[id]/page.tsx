@@ -19,7 +19,7 @@ export default async function InvoicePage({
   if (!order) notFound();
 
   // Ensure users can only view their own invoices, unless they are admin/owner
-  if (order.userId !== user.id && user.role === "USER") {
+  if (order.userId !== user.id && user.role === "CASHIER") {
     redirect("/app");
   }
 

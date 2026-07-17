@@ -39,12 +39,11 @@ export default function UsersTable({ users }: { users: User[] }) {
       render: (item) => (
         <form action={updateUserRole} className="flex space-x-2">
           <input type="hidden" name="id" value={item.id} />
-          <select
-            name="role"
+          <select name="role"
             defaultValue={item.role}
-            className="block w-full rounded-md border-gray-300 py-1 pl-3 pr-8 text-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 border"
+            className="block w-full rounded-md border-gray-300 py-1 pl-3  text-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 border pr-10"
           >
-            <option value="USER">USER</option>
+            <option value="CASHIER">CASHIER</option>
             <option value="ADMIN">ADMIN</option>
             <option value="OWNER">OWNER</option>
           </select>

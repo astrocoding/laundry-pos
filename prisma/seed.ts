@@ -18,8 +18,7 @@ async function main() {
   await prisma.machineReservation.deleteMany()
   await prisma.order.deleteMany()
   await prisma.pricingRule.deleteMany()
-  await prisma.walletLedger.deleteMany()
-  await prisma.wallet.deleteMany()
+
   await prisma.machine.deleteMany()
   await prisma.user.deleteMany()
 
@@ -46,35 +45,15 @@ async function main() {
     }
   })
 
-  const customer1 = await prisma.user.create({
+  const cashier1 = await prisma.user.create({
     data: {
       name: 'John Doe',
       email: 'john@example.com',
       phone: '08110000003',
       passwordHash,
-      role: Role.USER,
-      wallet: {
-        create: {
-          balance: 100000,
-        }
-      }
+      role: Role.CASHIER,
     }
   })
-  
-  // Ledger for initial top up
-  const customerWallet = await prisma.wallet.findUnique({ where: { userId: customer1.id } })
-  if (customerWallet) {
-    await prisma.walletLedger.create({
-      data: {
-        walletId: customerWallet.id,
-        type: 'TOPUP',
-        amount: 100000,
-        balanceBefore: 0,
-        balanceAfter: 100000,
-        referenceType: 'SYSTEM_INIT',
-      }
-    })
-  }
 
   // 3. Create Machines
   await Promise.all([
