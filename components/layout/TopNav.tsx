@@ -65,7 +65,7 @@ export function TopNav() {
         { name: "Dashboard", href: "/owner", icon: <LayoutDashboard className="w-4 h-4 mr-2" /> },
         { name: "Users", href: "/owner/users", icon: <Users className="w-4 h-4 mr-2" /> },
         { name: "Pricing", href: "/owner/pricing", icon: <CircleDollarSign className="w-4 h-4 mr-2" /> },
-        { name: "Monitor", href: "/app/monitor", icon: <Activity className="w-4 h-4 mr-2" /> },
+        { name: "Monitor", href: "/owner/monitor", icon: <Activity className="w-4 h-4 mr-2" /> },
       ];
     }
     if (role === "ADMIN") {
