@@ -1,11 +1,33 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { User } from "@prisma/client";
 import { DataTable, ColumnDef } from "@/components/ui/DataTable";
-import { updateUserRole } from "./actions";
+import { deleteUser } from "./actions";
+import { Trash2 } from "lucide-react";
+import { ConfirmDeleteModal } from "@/components/ui/ConfirmDeleteModal";
+import EditUserModal from "./EditUserModal";
 
 export default function UsersTable({ users }: { users: User[] }) {
+  const [isDeleting, setIsDeleting] = useState<string | null>(null);
+  const [itemToDelete, setItemToDelete] = useState<string | null>(null);
+
+  const confirmDelete = async () => {
+    if (!itemToDelete) return;
+
+    setIsDeleting(itemToDelete);
+    try {
+      const formData = new FormData();
+      formData.append("id", itemToDelete);
+      await deleteUser(formData);
+      setItemToDelete(null);
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Failed to delete user");
+    } finally {
+      setIsDeleting(null);
+    }
+  };
+
   const columns: ColumnDef<User>[] = [
     { key: "name", label: "Name", sortable: true },
     { key: "phone", label: "Phone", sortable: true },
@@ -31,40 +53,50 @@ export default function UsersTable({ users }: { users: User[] }) {
       key: "isActive",
       label: "Status",
       sortable: true,
-      render: (item) => (item.isActive ? "Active" : "Suspended"),
+      render: (item) => (
+        <span
+          className={`inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${
+            item.isActive ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+          }`}
+        >
+          {item.isActive ? "Active" : "Suspended"}
+        </span>
+      ),
     },
     {
       key: "action",
       label: "Action",
       render: (item) => (
-        <form action={updateUserRole} className="flex space-x-2">
-          <input type="hidden" name="id" value={item.id} />
-          <select
-            name="role"
-            defaultValue={item.role}
-            className="block w-full rounded-md border-gray-300 py-1 pl-3 pr-8 text-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 border"
-          >
-            <option value="USER">USER</option>
-            <option value="ADMIN">ADMIN</option>
-            <option value="OWNER">OWNER</option>
-          </select>
+        <div className="flex space-x-3 items-center">
+          <EditUserModal user={item} />
           <button
-            type="submit"
-            className="inline-flex items-center rounded border border-transparent bg-sky-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+            onClick={() => setItemToDelete(item.id)}
+            disabled={isDeleting === item.id}
+            className="text-red-600 hover:text-red-900 flex items-center font-medium disabled:opacity-50"
           >
-            Update
+            <Trash2 className="h-4 w-4 mr-1" />
+            {isDeleting === item.id ? "..." : "Delete"}
           </button>
-        </form>
+        </div>
       ),
     },
   ];
 
   return (
-    <DataTable
-      data={users}
-      columns={columns}
-      searchKey="name"
-      searchPlaceholder="Search Name..."
-    />
+    <>
+      <DataTable
+        data={users}
+        columns={columns}
+        searchKey="name"
+        searchPlaceholder="Search Name..."
+      />
+      <ConfirmDeleteModal
+        isOpen={itemToDelete !== null}
+        onClose={() => setItemToDelete(null)}
+        onConfirm={confirmDelete}
+        itemName="user"
+        isDeleting={isDeleting !== null}
+      />
+    </>
   );
 }

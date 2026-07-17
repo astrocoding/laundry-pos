@@ -10,6 +10,7 @@ import { PricingPreview } from "@/components/landing/PricingPreview";
 import { CtaSection } from "@/components/landing/CtaSection";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 import { WaterWaveDivider } from "@/components/landing/WaterWaveDivider";
+import { BackToTop } from "@/components/landing/BackToTop";
 
 export const metadata: Metadata = {
   title: "LaundryPOS | Timer-Based Laundry POS System",
@@ -34,6 +35,7 @@ export default function Home() {
         <CtaSection />
       </main>
       <LandingFooter />
+      <BackToTop />
     </div>
   );
 }

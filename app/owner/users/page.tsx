@@ -1,12 +1,18 @@
 import { prisma } from "@/lib/prisma";
 import { requireOwner } from "@/lib/permissions";
 import UsersTable from "./UsersTable";
+import AddUserModal from "./AddUserModal";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "User Management" };
+
+export const dynamic = "force-dynamic";
 
 export default async function OwnerUsersPage() {
   await requireOwner();
 
   const users = await prisma.user.findMany({
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 
   return (
@@ -15,8 +21,11 @@ export default async function OwnerUsersPage() {
         <div className="sm:flex-auto">
           <h1 className="text-2xl font-semibold text-gray-900">Users Management</h1>
           <p className="mt-2 text-sm text-gray-700">
-            A list of all users, admins, and owners in the system.
+            Manage all cashiers, admins, and owners in the system.
           </p>
+        </div>
+        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+          <AddUserModal />
         </div>
       </div>
       <div className="mt-8">

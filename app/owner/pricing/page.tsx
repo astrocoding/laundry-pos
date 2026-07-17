@@ -2,6 +2,9 @@ import { prisma } from "@/lib/prisma";
 import { requireOwner } from "@/lib/permissions";
 import PricingTable, { PricingRuleData } from "./PricingTable";
 import AddPricingModal from "./AddPricingModal";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Pricing Management" };
 
 export const dynamic = "force-dynamic";
 

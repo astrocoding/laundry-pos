@@ -2,6 +2,22 @@ import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/permissions";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
+import PrintReceiptButton from "./PrintReceiptButton";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const order = await prisma.order.findUnique({
+    where: { id },
+    include: { invoice: true },
+  });
+  const invoiceNumber = order?.invoice?.invoiceNumber ?? "Invoice";
+  return { title: `Invoice ${invoiceNumber}` };
+}
 
 export default async function InvoicePage({
   params,
@@ -19,7 +35,7 @@ export default async function InvoicePage({
   if (!order) notFound();
 
   // Ensure users can only view their own invoices, unless they are admin/owner
-  if (order.userId !== user.id && user.role === "USER") {
+  if (order.userId !== user.id && user.role === "CASHIER") {
     redirect("/app");
   }
 
@@ -40,10 +56,11 @@ export default async function InvoicePage({
             <h3 className="text-lg leading-6 font-medium text-gray-900">Invoice</h3>
             <p className="mt-1 max-w-2xl text-sm text-gray-500">{invoice.invoiceNumber}</p>
           </div>
-          <div>
+          <div className="flex items-center gap-3">
             <span className="inline-flex rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">
               {invoice.status}
             </span>
+            <PrintReceiptButton orderId={order.id} />
           </div>
         </div>
         <div className="px-4 py-5 sm:p-6">

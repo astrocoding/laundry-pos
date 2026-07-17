@@ -1,9 +1,18 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./auth";
+import { prisma } from "./prisma";
 
 export async function getCurrentUser() {
   const session = await getServerSession(authOptions);
-  return session?.user;
+  if (!session?.user?.id) return null;
+
+  // Verify user still exists in database (handles cases where DB was re-seeded but JWT remains)
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+  });
+
+  if (!user) return null;
+  return session.user;
 }
 
 export async function requireUser() {

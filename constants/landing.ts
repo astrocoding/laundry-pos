@@ -10,7 +10,16 @@ import {
   Cpu,
 } from "lucide-react";
 
-export const machineStatuses = [
+export type MachineStatusPreview = {
+  code: string;
+  type: string;
+  status: "available" | "running" | "queued" | "maintenance";
+  label: string;
+  timer?: string;
+  queue?: number;
+};
+
+export const machineStatuses: MachineStatusPreview[] = [
   {
     code: "W1",
     type: "Washer",
@@ -37,7 +46,7 @@ export const machineStatuses = [
     status: "maintenance",
     label: "Maintenance",
   },
-] as const;
+];
 
 export const features = [
   {

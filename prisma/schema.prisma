@@ -10,7 +10,7 @@ datasource db {
 }
 
 enum Role {
-  USER
+  CASHIER
   ADMIN
   OWNER
 }
@@ -62,12 +62,7 @@ enum QueueStatus {
   NO_SHOW
 }
 
-enum WalletLedgerType {
-  TOPUP
-  PURCHASE
-  REFUND
-  ADJUSTMENT
-}
+
 
 model User {
   id           String   @id @default(uuid())
@@ -75,12 +70,10 @@ model User {
   email        String?  @unique
   phone        String   @unique
   passwordHash String
-  role         Role     @default(USER)
+  role         Role     @default(CASHIER)
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now()) @db.Timestamptz(6)
   updatedAt    DateTime @updatedAt @db.Timestamptz(6)
-
-  wallet       Wallet?
   orders       Order[]
   sessions     MachineSession[]
   queues       MachineQueue[]
@@ -121,31 +114,7 @@ model PricingRule {
   orders           Order[]
 }
 
-model Wallet {
-  id        String   @id @default(uuid())
-  userId    String   @unique
-  balance   Decimal  @default(0) @db.Decimal(12, 2)
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt DateTime @updatedAt @db.Timestamptz(6)
 
-  user      User     @relation(fields: [userId], references: [id])
-  ledgers   WalletLedger[]
-}
-
-model WalletLedger {
-  id             String           @id @default(uuid())
-  walletId       String
-  type           WalletLedgerType
-  amount         Decimal          @db.Decimal(12, 2)
-  balanceBefore  Decimal          @db.Decimal(12, 2)
-  balanceAfter   Decimal          @db.Decimal(12, 2)
-  referenceType  String?
-  referenceId    String?
-  createdById    String?
-  createdAt      DateTime         @default(now()) @db.Timestamptz(6)
-
-  wallet         Wallet           @relation(fields: [walletId], references: [id])
-}
 
 model Order {
   id               String      @id @default(uuid())
@@ -159,6 +128,8 @@ model Order {
   durationMinutes  Int
   priceSnapshot    Decimal     @db.Decimal(12, 2)
   finalAmount      Decimal     @db.Decimal(12, 2)
+  paymentMethod    String      @default("CASH")
+  customerName     String?
   paidAt           DateTime?   @db.Timestamptz(6)
   createdAt        DateTime    @default(now()) @db.Timestamptz(6)
   updatedAt        DateTime    @updatedAt @db.Timestamptz(6)

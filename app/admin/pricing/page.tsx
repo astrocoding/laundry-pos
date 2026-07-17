@@ -1,6 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/permissions";
 import PricingTable, { PricingRuleData } from "./PricingTable";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Pricing Rules" };
 
 export default async function AdminPricingPage() {
   await requireAdmin();

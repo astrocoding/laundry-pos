@@ -35,8 +35,7 @@ export function LandingHero() {
             </Link>
           </div>
         </div>
-
-        <div className="w-full lg:w-1/2 mt-16 lg:mt-0 relative">
+        <div className="w-full lg:w-5/12 lg:max-w-md xl:max-w-lg mt-16 lg:mt-0 relative mx-auto lg:ml-auto">
           <div className="relative rounded-2xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-2xl p-6 lg:p-8 overflow-hidden isolate ring-1 ring-black/5">
             <div className="absolute inset-0 bg-gradient-to-br from-sky-100/50 to-white/20 -z-10" />
             <div className="flex items-center gap-2 mb-6 pb-4 border-b border-sky-100/50">
