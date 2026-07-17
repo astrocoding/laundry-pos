@@ -1,0 +1,65 @@
+name: Continuous Deployment Production (Laundry POS)
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy Frontend & Backend to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            # Hentikan eksekusi script jika ada perintah yang error
+            set -e
+            
+            # Pindah ke direktori proyek production di VPS
+            echo "Memulai proses deployment ke server..."
+            cd /var/www/laundry-pos
+            
+            # Perbaiki error Git "dubious ownership"
+            git config --global --add safe.directory /var/www/laundry-pos
+            
+            # 1. Tarik pembaruan kode terbaru dari repository (astrocoding/laundry-pos)
+            echo "Pulling latest code from origin..."
+            
+            # Cek branch aktif (biasanya main atau master)
+            BRANCH=$(git rev-parse --abbrev-ref HEAD)
+            git fetch origin $BRANCH
+            git checkout $BRANCH
+            git reset --hard origin/$BRANCH
+            
+            # 2. Setup NVM & Install dependensi Javascript (NPM)
+            echo "Installing npm dependencies..."
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            export PATH=$PATH:/usr/local/bin:/usr/bin
+            
+            npm install --legacy-peer-deps
+            
+            # 3. Generate Prisma Client (Abaikan jika tidak pakai Prisma)
+            echo "Generating Prisma Client..."
+            npx prisma generate || true
+            
+            # 4. Build aplikasi Next.js
+            echo "Building Next.js application..."
+            npm run build
+            
+            # 5. Jalankan Migrasi Database (Abaikan jika tidak pakai Prisma)
+            echo "Running database migrations..."
+            npx prisma migrate deploy || true
+            
+            # 6. Reload Next.js server via PM2
+            # Memakai nama 'laundry-pos' sesuai dengan command PM2 yang Anda berikan sebelumnya
+            echo "Reloading application via PM2..."
+            pm2 reload laundry-pos || pm2 restart laundry-pos || true
+            
+            echo "Deployment completed successfully! Sistem berhasil di-update."
