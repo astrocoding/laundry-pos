@@ -15,7 +15,7 @@ import {
   Moon,
   User,
   LogOut,
-  Layers,
+  Droplets,
   Menu,
   X,
 } from "lucide-react";
@@ -79,23 +79,19 @@ export function TopNavClient({ role, userName, userEmail }: TopNavClientProps) {
     ];
   };
 
+  const basePath = role === "OWNER" ? "/owner" : role === "ADMIN" ? "/admin" : "/app";
+
   return (
     <nav className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50 w-full">
-      <svg className="absolute w-0 h-0">
-        <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop stopColor="#60a5fa" offset="0%" />
-          <stop stopColor="#2563eb" offset="100%" />
-        </linearGradient>
-      </svg>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 justify-between items-center w-full">
 
           {/* Left Side: Logo & Links & Mobile Menu */}
           <div className="flex items-center h-full">
             {/* Logo */}
-            <div className="flex flex-shrink-0 items-center mr-4">
+            <Link href={basePath} className="flex flex-shrink-0 items-center mr-4 hover:opacity-80 transition-opacity">
               <div className="flex items-center mr-2">
-                <Layers className="w-7 h-7" style={{ stroke: "url(#blue-gradient)" }} />
+                <Droplets className="w-7 h-7 text-sky-500" />
               </div>
               <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-sky-800 tracking-tight hidden sm:block">
                 LaundryPOS
@@ -103,7 +99,7 @@ export function TopNavClient({ role, userName, userEmail }: TopNavClientProps) {
               <span className="ml-3 hidden sm:inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 border border-gray-200">
                 {role.toLowerCase()}
               </span>
-            </div>
+            </Link>
 
             {/* Mobile Menu Button */}
             <div className="relative sm:hidden flex items-center" ref={mobileMenuRef}>
@@ -121,14 +117,14 @@ export function TopNavClient({ role, userName, userEmail }: TopNavClientProps) {
               {/* Mobile Dropdown */}
               {isMobileMenuOpen && (
                 <div className="absolute left-0 top-12 mt-2 w-56 origin-top-left rounded-xl bg-white shadow-lg border border-gray-100 focus:outline-none z-50 overflow-hidden flex flex-col py-2">
-                  <div className="px-4 py-2 border-b border-gray-50 mb-2">
+                  <Link href={basePath} className="block px-4 py-2 border-b border-gray-50 mb-2 hover:bg-gray-50 transition-colors">
                     <span className="text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-sky-800 tracking-tight">
                       LaundryPOS
                     </span>
                     <span className="ml-2 inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-800 border border-gray-200">
                       {role.toLowerCase()}
                     </span>
-                  </div>
+                  </Link>
                   {getLinks().map((link) => {
                     const isActive = pathname === link.href;
                     return (
