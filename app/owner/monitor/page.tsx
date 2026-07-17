@@ -1,15 +1,15 @@
 import { prisma } from "@/lib/prisma";
-import { requireAdmin } from "@/lib/permissions";
+import { requireOwner } from "@/lib/permissions";
 import { syncMachineStatuses } from "@/lib/machine-sync";
-import MonitoringTable, { SessionData } from "./MonitoringTable";
+import OwnerMonitorTable, { OwnerMonitorSessionData } from "./OwnerMonitorTable";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Machine Monitor" };
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminMonitoringPage() {
-  await requireAdmin();
+export default async function OwnerMonitorPage() {
+  await requireOwner();
   await syncMachineStatuses();
 
   const todayStart = new Date();
@@ -42,7 +42,7 @@ export default async function AdminMonitoringPage() {
   const [runningCount, completedToday, revenueToday, availableCount] = stats;
   const revenueTodayNum = revenueToday._sum.finalAmount?.toNumber() || 0;
 
-  const serialized: SessionData[] = sessions.map((s) => ({
+  const serialized: OwnerMonitorSessionData[] = sessions.map((s) => ({
     id: s.id,
     machineCode: s.machine.code,
     machineName: s.machine.name,
@@ -94,7 +94,7 @@ export default async function AdminMonitoringPage() {
       </dl>
 
       {/* Session Table */}
-      <MonitoringTable sessions={serialized} />
+      <OwnerMonitorTable sessions={serialized} />
     </div>
   );
 }

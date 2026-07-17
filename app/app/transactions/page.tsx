@@ -1,6 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/permissions";
 import TransactionsTable, { OrderData } from "./TransactionsTable";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "My Transactions" };
 
 export default async function TransactionsPage() {
   const user = await requireUser();
