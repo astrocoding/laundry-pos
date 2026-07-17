@@ -216,7 +216,16 @@ export function TopNav() {
                   
                   <div className="border-t border-gray-100 bg-white">
                     <button
-                      onClick={() => signOut({ callbackUrl: "/login" })}
+                      onClick={async () => {
+                        await signOut({ redirect: false });
+                        // Clear all NextAuth cookies client-side then force redirect
+                        document.cookie.split(";").forEach((c) => {
+                          document.cookie = c
+                            .replace(/^ +/, "")
+                            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+                        });
+                        window.location.href = "/login";
+                      }}
                       className="flex w-full items-center px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
                     >
                       <LogOut className="w-4 h-4 mr-3 text-red-500" />
