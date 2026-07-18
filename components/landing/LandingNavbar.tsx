@@ -1,12 +1,23 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, Droplets } from "lucide-react";
-import { cn } from "@/lib/cn";
+
 
 export function LandingNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const links = [
     { name: "Features", href: "#features" },
@@ -28,15 +39,49 @@ export function LandingNavbar() {
             </span>
           </Link>
         </div>
-        <div className="flex lg:hidden">
+        <div className="relative flex lg:hidden items-center" ref={mobileMenuRef}>
           <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            onClick={() => setMobileMenuOpen(true)}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className={`p-2 rounded-lg transition-colors border-2 ${
+              mobileMenuOpen
+                ? "border-sky-500 bg-sky-50 text-sky-600"
+                : "border-transparent text-gray-500 hover:bg-gray-100"
+            }`}
           >
             <span className="sr-only">Open main menu</span>
-            <Menu className="h-6 w-6" aria-hidden="true" />
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
+
+          {/* Mobile Dropdown */}
+          {mobileMenuOpen && (
+            <div className="absolute right-0 top-12 mt-2 w-56 origin-top-right rounded-xl bg-white shadow-lg border border-gray-100 focus:outline-none z-50 overflow-hidden flex flex-col py-2">
+              {links.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center px-4 py-2.5 text-sm font-medium transition-colors text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                >
+                  {item.name}
+                </a>
+              ))}
+              <div className="h-px bg-gray-100 my-1 mx-4"></div>
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center px-4 py-2.5 text-sm font-medium transition-colors text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+              >
+                Log in
+              </Link>
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center px-4 py-2.5 text-sm font-medium transition-colors text-sky-600 hover:bg-sky-50"
+              >
+                Get Started
+              </Link>
+            </div>
+          )}
         </div>
         <div className="hidden lg:flex lg:gap-x-8">
           {links.map((item) => (
@@ -60,59 +105,7 @@ export function LandingNavbar() {
           </Link>
         </div>
       </nav>
-      {/* Mobile menu */}
-      <div className={cn("lg:hidden", mobileMenuOpen ? "fixed inset-0 z-50" : "hidden")}>
-        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-        <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 shadow-xl">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
-              <span className="sr-only">LaundryPOS</span>
-              <Droplets className="h-8 w-8 text-sky-500" />
-              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-cyan-600">
-                LaundryPOS
-              </span>
-            </Link>
-            <button
-              type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span className="sr-only">Close menu</span>
-              <X className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                {links.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-sky-50 transition-colors"
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
-              <div className="py-6 flex flex-col gap-3">
-                <Link
-                  href="/login"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-sky-50"
-                >
-                  Log in
-                </Link>
-                <Link
-                  href="/login"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-sky-600 bg-sky-50 hover:bg-sky-100"
-                >
-                  Get Started
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </header>
   );
 }
