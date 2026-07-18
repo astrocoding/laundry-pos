@@ -1,4 +1,5 @@
 "use client";
+import { formatDateTime } from "@/lib/format";
 
 import React from "react";
 import { DataTable, ColumnDef } from "@/components/ui/DataTable";
@@ -21,7 +22,7 @@ export default function OwnerTransactionsTable({ orders }: { orders: OwnerOrderD
       sortable: true,
       render: (item) => {
         const d = new Date(item.createdAt);
-        return `${d.toLocaleDateString("id-ID")} ${d.toLocaleTimeString("id-ID")}`;
+        return formatDateTime(d);
       },
     },
     { key: "cashierName", label: "Cashier", sortable: true },

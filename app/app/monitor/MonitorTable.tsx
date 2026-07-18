@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { formatTime } from "@/lib/format";
 import { DataTable, ColumnDef } from "@/components/ui/DataTable";
 import TimerComponent from "@/components/TimerComponent";
 
@@ -54,7 +55,7 @@ export default function MonitorTable({ sessions }: { sessions: MonitorSessionDat
       key: "endsAt",
       label: "End Time",
       sortable: true,
-      render: (item) => new Date(item.endsAt).toLocaleTimeString(),
+      render: (item) => formatTime(item.endsAt),
     },
   ];
 

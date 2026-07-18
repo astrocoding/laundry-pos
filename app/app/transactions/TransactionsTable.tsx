@@ -1,4 +1,5 @@
 "use client";
+import { formatDateTime } from "@/lib/format";
 
 import React from "react";
 import Link from "next/link";
@@ -22,7 +23,7 @@ export default function TransactionsTable({ orders }: { orders: OrderData[] }) {
       sortable: true,
       render: (item) => {
         const d = new Date(item.createdAt);
-        return `${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+        return formatDateTime(d);
       },
     },
     { key: "serviceName", label: "Service", sortable: true },
