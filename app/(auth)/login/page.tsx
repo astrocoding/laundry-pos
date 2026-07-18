@@ -48,7 +48,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-transparent shadow-none px-4 py-8 sm:bg-white sm:shadow sm:rounded-lg sm:px-10">
           <div className="mb-6 flex justify-center">
             <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
               <Droplets className="h-10 w-10 text-sky-500" />
