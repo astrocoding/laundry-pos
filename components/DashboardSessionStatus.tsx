@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { formatTime } from "@/lib/format";
 
 export default function DashboardSessionStatus({ 
   initialStatus, 
@@ -37,14 +38,14 @@ export default function DashboardSessionStatus({
   if (status === "RUNNING") {
     return (
       <span className="text-gray-500 pr-10">
-        Running until {endsAtDate.toLocaleTimeString()}
+        Running until {formatTime(endsAtDate)}
       </span>
     );
   }
 
   return (
     <span className="text-gray-500 pr-10">
-      Finished at {endsAtDate.toLocaleTimeString()}
+      Finished at {formatTime(endsAtDate)}
     </span>
   );
 }

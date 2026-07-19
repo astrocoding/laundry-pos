@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { formatDateTime } from "@/lib/format";
 import { requireUser } from "@/lib/permissions";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
@@ -71,7 +72,7 @@ export default async function InvoicePage({
             </div>
             <div className="text-right">
               <p className="text-sm font-medium text-gray-500">Date</p>
-              <p className="mt-1 text-sm text-gray-900">{invoice.createdAt.toLocaleDateString()} {invoice.createdAt.toLocaleTimeString()}</p>
+              <p className="mt-1 text-sm text-gray-900">{formatDateTime(invoice.createdAt)}</p>
             </div>
           </div>
 

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/permissions";
 import { syncMachineStatuses } from "@/lib/machine-sync";
+import { formatTime } from "@/lib/format";
 import Link from "next/link";
 import { Machine, MachineSession } from "@prisma/client";
 import type { Metadata } from "next";
@@ -64,7 +65,7 @@ export default async function UserMachinesPage() {
               </Link>
             ) : isRunning && session ? (
               <div className="w-full text-center rounded-md bg-sky-50 px-3 py-2 text-sm font-medium text-sky-700 ring-1 ring-inset ring-sky-700/10">
-                Ends at {session.endsAt.toLocaleTimeString()}
+                Ends at {formatTime(session.endsAt)}
               </div>
             ) : (
               <div className="w-full text-center rounded-md bg-gray-50 px-3 py-2 text-sm font-medium text-gray-500 ring-1 ring-inset ring-gray-500/10">
